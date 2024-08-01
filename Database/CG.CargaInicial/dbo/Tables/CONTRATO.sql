@@ -1,0 +1,16 @@
+﻿CREATE TABLE dbo.CONTRATO
+(
+	IdContrato INT NOT NULL IDENTITY(1,1) 
+		CONSTRAINT PK_Contrato PRIMARY KEY CLUSTERED,
+	IdCliente INT NOT NULL
+		CONSTRAINT FK_CONTRATO_Cliente
+			FOREIGN KEY
+			REFERENCES dbo.CLIENTE(IdCliente),
+	FechaInicio DATETIME NOT NULL, 
+    FechaFin DATETIME, 
+    EstadoContrato VARCHAR(1) NOT NULL
+		CONSTRAINT CHK_CONTRATO_EstadoContrato
+			CHECK (EstadoContrato in ('Activo', 'Pendiente','Finalizado')  )
+)
+WITH (DATA_COMPRESSION  = PAGE)
+GO

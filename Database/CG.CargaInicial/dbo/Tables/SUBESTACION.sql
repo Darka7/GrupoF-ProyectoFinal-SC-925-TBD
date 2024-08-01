@@ -1,0 +1,12 @@
+﻿CREATE TABLE dbo.SUBESTACION
+(
+		IdSubEstacion INT NOT NULL IDENTITY(1,1) 
+		CONSTRAINT PK_SubEstacion PRIMARY KEY CLUSTERED,
+		Nombre VARCHAR(100) NOT NULL, 
+        Ubicacion VARCHAR(800) NOT NULL, 
+        CapacidadKW DECIMAL(10,2) NOT NULL, 
+        FechaInstalacion DATETIME NOT NULL, 
+        UltimoMantenimiento DATETIME 
+)
+WITH (DATA_COMPRESSION  = PAGE)
+GO

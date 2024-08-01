@@ -3,16 +3,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>Database.CG.CargaInicial</Name>
+    <Name>CG.Database</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{fecc809e-ec61-4d1a-b356-32468995f138}</ProjectGuid>
+    <ProjectGuid>{b0694808-5a96-48e9-b7f8-c4d65f668933}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>Database.CG.CargaInicial</RootNamespace>
-    <AssemblyName>Database.CG.CargaInicial</AssemblyName>
+    <RootNamespace>CG.Database</RootNamespace>
+    <AssemblyName>CG.Database</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>

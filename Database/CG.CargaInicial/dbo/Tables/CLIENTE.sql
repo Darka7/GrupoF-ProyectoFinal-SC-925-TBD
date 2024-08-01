@@ -1,0 +1,25 @@
+﻿CREATE TABLE dbo.CLIENTE 
+(
+	IdCliente INT NOT NULL IDENTITY(1,1) 
+		CONSTRAINT PK_Cliente PRIMARY KEY CLUSTERED,
+	Cedula VARCHAR(20) NOT NULL,
+	Nombre VARCHAR(50) NOT NULL, 
+    Apellido1 VARCHAR(50) NOT NULL, 
+    Apellido2 VARCHAR(50), 
+    Direccion VARCHAR(200) NOT NULL, 
+    Telefono VARCHAR(20), 
+    Email VARCHAR(100), 
+    EmailEncriptado VARBINARY(256), 
+    FechaRegistro DATETIME CONSTRAINT DF_Cliente_FechaRegistro DEFAULT (GETDATE()), 
+    IdUbicacion INT NOT NULL
+        CONSTRAINT FK_Cliente_Ubicacion
+			FOREIGN KEY
+			REFERENCES dbo.UBICACION(IdUbicacion)
+)
+WITH (DATA_COMPRESSION  = PAGE)
+GO
+-- no puede existir otra  cedula identica
+CREATE UNIQUE NONCLUSTERED INDEX UIDX__CLIENTE_Cedula
+ON dbo.CLIENTE (Cedula)
+WITH (DATA_COMPRESSION  = PAGE)
+GO
