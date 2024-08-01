@@ -56,40 +56,10 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="dbo" />
-    <Folder Include="dbo\Tables" />
-    <Folder Include="dbo\StoreProcedures" />
-    <Folder Include="dbo\Security" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="dbo\Tables\UBICACION.sql" />
-    <Build Include="dbo\Security\RolesAndPriviliges.sql" />
-    <Build Include="dbo\Security\Usuarios.sql" />
-    <Build Include="dbo\Tables\TIPO_SERVICIO.sql" />
-    <Build Include="dbo\Tables\METODO_PAGO.sql" />
-    <Build Include="dbo\Tables\PUESTO.sql" />
-    <Build Include="dbo\Tables\TIPO_EQUIPO.sql" />
-    <Build Include="dbo\Tables\TIPO_MANTENIMIENTO.sql" />
-    <Build Include="dbo\Tables\TIPO_RECLAMO.sql" />
-    <Build Include="dbo\Tables\CLIENTE.sql" />
-    <Build Include="dbo\Tables\CONTRATO.sql" />
-    <Build Include="dbo\Tables\SERVICIO.sql" />
-    <Build Include="dbo\Tables\FACTURA.sql" />
-    <Build Include="dbo\Tables\PAGO.sql" />
-    <Build Include="dbo\Tables\EMPLEADO.sql" />
-    <Build Include="dbo\Tables\SUBESTACION.sql" />
-    <Build Include="dbo\Tables\EQUIPO.sql" />
-    <Build Include="dbo\Tables\MANTENIMIENTO.sql" />
-    <Build Include="dbo\Tables\RECLAMO.sql" />
-    <Build Include="dbo\Security\Encriptar.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="dbo\Security\AsignacionRolAdministrador.sql" />
-    <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
