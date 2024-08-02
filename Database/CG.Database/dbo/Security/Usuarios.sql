@@ -1,4 +1,5 @@
-﻿CREATE LOGIN AdminCoopeGuanacaste WITH PASSWORD = 'PF-SC-925';
+﻿-- Crear usuarios y asignar roles 
+CREATE LOGIN AdminCoopeGuanacaste WITH PASSWORD = 'PF-SC-925';
 GO
 CREATE USER AdminCoopeGuanacaste FOR LOGIN AdminCoopeGuanacaste;
 GO
@@ -36,7 +37,7 @@ GO
 GRANT CONNECT TO FacturacionCoopeGuanacaste
 GO
 --------------------------------------------------------
-CREATE LOGIN LecturaCoopeGuanacaste WITH PASSWORD = 'ContraseñaSegura5'; 
+CREATE LOGIN LecturaCoopeGuanacaste WITH PASSWORD = 'PF-SC-925'; 
 GO
 CREATE USER LecturaCoopeGuanacaste FOR LOGIN LecturaCoopeGuanacaste; 
 GO
