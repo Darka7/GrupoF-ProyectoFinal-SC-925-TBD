@@ -1,15 +1,15 @@
-﻿CREATE PROCEDURE dbo.CargaDatosIniciales
-	
+﻿CREATE  PROCEDURE dbo.CargaDatosIniciales
 AS
 BEGIN
-SET NOCOUNT ON
+    SET NOCOUNT ON;
 
-IF EXISTS (SELECT * FROM RECLAMO )BEGIN
---NO SE VUELVE A EJECUTAR EL SCRIPT SOLO EN UNA OCACION
-PRINT 'Carga Inicial Cancelada'
-    RETURN;
-END
-    
+    IF EXISTS (SELECT * FROM RECLAMO)
+    BEGIN
+        PRINT 'Carga Inicial Cancelada: Los datos ya existen';
+        RETURN;
+    END
+
+   
 
     -- Variables para controlar la cantidad de registros
     DECLARE @NumClientes INT = 1000;
@@ -49,11 +49,50 @@ END
     INSERT INTO TIPO_RECLAMO (NombreTipoReclamo)
     VALUES ('Facturación Incorrecta'), ('Interrupción de Servicio'), ('Baja Calidad de Señal'), ('Demora en Instalación'), ('Mala Atención al Cliente');
 
-    -- Insertar clientes de prueba con email encriptado
+    -- Insertar subestaciones de prueba
+    INSERT INTO SUBESTACION (Nombre, Ubicacion, CapacidadKW, FechaInstalacion)
+    VALUES 
+    ('Subestación Norte', 'Km 5 Carretera a Nicoya', 1000.00, '2020-01-01'),
+    ('Subestación Sur', 'Km 10 Carretera a Santa Cruz', 1200.00, '2021-01-01'),
+    ('Subestación Este', 'Km 15 Carretera a Liberia', 1500.00, '2019-06-15'),
+    ('Subestación Oeste', 'Km 8 Carretera a Tamarindo', 800.00, '2022-03-20');
+
+    -- Insertar equipos de prueba
     DECLARE @i INT = 1;
+    WHILE @i <= @NumEquipos
+    BEGIN
+        INSERT INTO EQUIPO (IdSubEstacion, IdTipoEquipo, Marca, Modelo, NumeroSerie, FechaAdquisicion, EstadoEquipo)
+        VALUES (
+            ((@i - 1) % 4) + 1,
+            (ABS(CHECKSUM(NEWID())) % 5) + 1,
+            CASE (ABS(CHECKSUM(NEWID())) % 5)
+                WHEN 0 THEN 'ABB'
+                WHEN 1 THEN 'Siemens'
+                WHEN 2 THEN 'General Electric'
+                WHEN 3 THEN 'Schneider Electric'
+                ELSE 'Mitsubishi'
+            END,
+            'Modelo' + CAST(@i AS VARCHAR(10)),
+            'SN' + RIGHT('00000' + CAST(@i AS VARCHAR(5)), 5),
+            DATEADD(YEAR, -CAST(RAND() * 5 AS INT), GETDATE()),
+            CASE WHEN RAND() > 0.7 THEN 'Nuevo' WHEN RAND() > 0.3 THEN 'Usado' ELSE 'Obsoleto' END
+        );
+        SET @i = @i + 1;
+    END;
+
+    -- Abrir la clave simétrica
+    OPEN SYMMETRIC KEY SimKeyClientes
+    DECRYPTION BY CERTIFICATE CertClientes;
+
+    -- Insertar clientes de prueba con email encriptado
+    SET @i = 1;
     WHILE @i <= @NumClientes
     BEGIN
         DECLARE @Email VARCHAR(100) = CONCAT('cliente', @i, '@email.com');
+        DECLARE @EmailEncriptado VARBINARY(256);
+
+        SET @EmailEncriptado = ENCRYPTBYKEY(KEY_GUID('SimKeyClientes'), @Email);
+
         INSERT INTO CLIENTE (Cedula, Nombre, Apellido1, Apellido2, Direccion, Telefono, Email, EmailEncriptado, IdUbicacion)
         VALUES (
             CONCAT('30', RIGHT('00000000' + CAST(@i AS VARCHAR(8)), 8)),
@@ -63,11 +102,14 @@ END
             'Dirección ' + CAST(@i AS VARCHAR(10)),
             CONCAT('8888', RIGHT('0000' + CAST(@i AS VARCHAR(4)), 4)),
             @Email,
-            ENCRYPTBYKEY(KEY_GUID('CertClientes'), @Email),
+            @EmailEncriptado,
             ((@i - 1) % 10) + 1
         );
         SET @i = @i + 1;
     END;
+
+    -- Cerrar la clave simétrica
+    CLOSE SYMMETRIC KEY SimKeyClientes;
 
     -- Insertar contratos de prueba
     SET @i = 1;
@@ -97,7 +139,7 @@ END
         VALUES (
             ((@i - 1) % @NumContratos) + 1,
             (ABS(CHECKSUM(NEWID())) % 6) + 1,
-            CASE WHEN RAND() > 0.5 THEN NULL ELSE (ABS(CHECKSUM(NEWID())) % @NumEquipos) + 1 END,
+            CASE WHEN RAND() > 0.3 THEN (ABS(CHECKSUM(NEWID())) % @NumEquipos) + 1 ELSE NULL END,
             DATEADD(DAY, CAST(RAND() * 30 AS INT), GETDATE())
         );
         SET @i = @i + 1;
@@ -149,46 +191,16 @@ END
         SET @i = @i + 1;
     END;
 
-    -- Insertar subestaciones de prueba
-    INSERT INTO SUBESTACION (Nombre, Ubicacion, CapacidadKW, FechaInstalacion)
-    VALUES 
-    ('Subestación Norte', 'Km 5 Carretera a Nicoya', 1000.00, '2020-01-01'),
-    ('Subestación Sur', 'Km 10 Carretera a Santa Cruz', 1200.00, '2021-01-01'),
-    ('Subestación Este', 'Km 15 Carretera a Liberia', 1500.00, '2019-06-15'),
-    ('Subestación Oeste', 'Km 8 Carretera a Tamarindo', 800.00, '2022-03-20');
-
-    -- Insertar equipos de prueba
-    SET @i = 1;
-    WHILE @i <= @NumEquipos
-    BEGIN
-        INSERT INTO EQUIPO (IdSubEstacion, IdTipoEquipo, Marca, Modelo, NumeroSerie, FechaAdquisicion, EstadoEquipo)
-        VALUES (
-            ((@i - 1) % 4) + 1,
-            (ABS(CHECKSUM(NEWID())) % 5) + 1,
-            CASE (ABS(CHECKSUM(NEWID())) % 5)
-                WHEN 0 THEN 'ABB'
-                WHEN 1 THEN 'Siemens'
-                WHEN 2 THEN 'General Electric'
-                WHEN 3 THEN 'Schneider Electric'
-                ELSE 'Mitsubishi'
-            END,
-            'Modelo' + CAST(@i AS VARCHAR(10)),
-            'SN' + RIGHT('00000' + CAST(@i AS VARCHAR(5)), 5),
-            DATEADD(YEAR, -CAST(RAND() * 5 AS INT), GETDATE()),
-            CASE WHEN RAND() > 0.7 THEN 'Nuevo' WHEN RAND() > 0.3 THEN 'Usado' ELSE 'Obsoleto' END
-        );
-        SET @i = @i + 1;
-    END;
-
     -- Insertar mantenimientos de prueba
     SET @i = 1;
     WHILE @i <= @NumMantenimientos
     BEGIN
-        INSERT INTO MANTENIMIENTO (IdEquipo, IdEmpleado, FechaMantenimiento, IdTipoMantenimiento, Descripcion, Costo)
+        INSERT INTO MANTENIMIENTO (IdEquipo, IdEmpleado, FechaMantenimiento, FechaFinMantenimiento, IdTipoMantenimiento, Descripcion, Costo)
         VALUES (
             (ABS(CHECKSUM(NEWID())) % @NumEquipos) + 1,
             (ABS(CHECKSUM(NEWID())) % @NumEmpleados) + 1,
             DATEADD(DAY, -CAST(RAND() * 365 AS INT), GETDATE()),
+            DATEADD(DAY, CAST(RAND() * 7 AS INT), DATEADD(DAY, -CAST(RAND() * 365 AS INT), GETDATE())),
             (ABS(CHECKSUM(NEWID())) % 4) + 1,
             'Mantenimiento #' + CAST(@i AS VARCHAR(10)),
             CAST((RAND() * 100000) + 10000 AS DECIMAL(10,2))
@@ -200,16 +212,17 @@ END
     SET @i = 1;
     WHILE @i <= @NumReclamos
     BEGIN
-        INSERT INTO RECLAMO (IdCliente, FechaReclamo, IdTipoReclamo, Descripcion, EstadoReclamo)
+        INSERT INTO RECLAMO (IdCliente, FechaReclamo, IdTipoReclamo, Descripcion, EstadoReclamo, FechaSolucion)
         VALUES (
             (ABS(CHECKSUM(NEWID())) % @NumClientes) + 1,
             DATEADD(DAY, -CAST(RAND() * 180 AS INT), GETDATE()),
             (ABS(CHECKSUM(NEWID())) % 5) + 1,
             'Reclamo #' + CAST(@i AS VARCHAR(10)),
-            CASE WHEN RAND() > 0.5 THEN 'Pendiente' ELSE 'Revisado' END
+            CASE WHEN RAND() > 0.5 THEN 'Pendiente' ELSE 'Revisado' END,
+            CASE WHEN RAND() > 0.5 THEN DATEADD(DAY, CAST(RAND() * 30 AS INT), GETDATE()) ELSE NULL END
         );
         SET @i = @i + 1;
     END;
-            PRINT 'Carga Inicial Finalizada'
 
-END
+    PRINT 'Carga Inicial Finalizada';
+END;
