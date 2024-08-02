@@ -10,6 +10,9 @@
 			CONSTRAINT FK_SERVICIO_TipoServicio
 				FOREIGN KEY
 				REFERENCES dbo.TIPO_SERVICIO(IdTipoServicio),  
+		IdEquipo INT NULL 
+			CONSTRAINT FK_Servicio_Equipo FOREIGN KEY (IdEquipo)
+				REFERENCES EQUIPO(IdEquipo),
         FechaInstalacion DATETIME  NULL, 
 )
 WITH (DATA_COMPRESSION  = PAGE)
