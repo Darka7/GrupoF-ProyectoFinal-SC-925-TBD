@@ -6,6 +6,7 @@ SET NOCOUNT ON
 
 IF EXISTS (SELECT * FROM RECLAMO )BEGIN
 --NO SE VUELVE A EJECUTAR EL SCRIPT SOLO EN UNA OCACION
+PRINT 'Carga Inicial Cancelada'
     RETURN;
 END
         -- Variables para controlar la cantidad de registros
@@ -191,5 +192,7 @@ END
                 );
                 SET @i = @i + 1;
             END;
+
+            PRINT 'Carga Inicial Finalizada'
 
 END
