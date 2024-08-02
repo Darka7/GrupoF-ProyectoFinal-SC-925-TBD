@@ -9,4 +9,5 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-:r .\dbo\Security\AsignacionRolAdministrador.sql
+:r .\dbo\Scripts\001-AsignacionRolAdministrador.sql
+:r .\dbo\Scripts\002-CargarDatos.sql

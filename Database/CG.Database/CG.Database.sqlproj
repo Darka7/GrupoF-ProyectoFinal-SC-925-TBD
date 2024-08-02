@@ -60,9 +60,7 @@
     <Folder Include="dbo\Security" />
     <Folder Include="dbo\StoreProcedures" />
     <Folder Include="dbo\Tables" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="dbo\Security\AsignacionRolAdministrador.sql" />
+    <Folder Include="dbo\Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Security\Encriptar.sql" />
@@ -85,6 +83,9 @@
     <Build Include="dbo\Tables\TIPO_RECLAMO.sql" />
     <Build Include="dbo\Tables\TIPO_SERVICIO.sql" />
     <Build Include="dbo\Tables\UBICACION.sql" />
+    <Build Include="dbo\StoreProcedures\CargaDatosIniciales.sql" />
+    <None Include="dbo\Scripts\002-CargarDatos.sql" />
+    <None Include="dbo\Scripts\001-AsignacionRolAdministrador.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

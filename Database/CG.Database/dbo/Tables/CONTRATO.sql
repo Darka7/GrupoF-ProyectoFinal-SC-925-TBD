@@ -8,7 +8,7 @@
 			REFERENCES dbo.CLIENTE(IdCliente),
 	FechaInicio DATETIME NOT NULL, 
     FechaFin DATETIME, 
-    EstadoContrato VARCHAR(1) NOT NULL
+    EstadoContrato VARCHAR(15) NOT NULL
 		CONSTRAINT CHK_CONTRATO_EstadoContrato
 			CHECK (EstadoContrato in ('Activo', 'Pendiente','Finalizado')  )
 )

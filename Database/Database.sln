@@ -5,8 +5,6 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CG.Database", "CG.Database\CG.Database.sqlproj", "{B0694808-5A96-48E9-B7F8-C4D65F668933}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CG.CargaInicial", "CG.CargaInicial\CG.CargaInicial.sqlproj", "{4842AEA5-8CA6-46A5-830E-33C2D68686CD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +17,6 @@ Global
 		{B0694808-5A96-48E9-B7F8-C4D65F668933}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0694808-5A96-48E9-B7F8-C4D65F668933}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B0694808-5A96-48E9-B7F8-C4D65F668933}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{4842AEA5-8CA6-46A5-830E-33C2D68686CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4842AEA5-8CA6-46A5-830E-33C2D68686CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4842AEA5-8CA6-46A5-830E-33C2D68686CD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{4842AEA5-8CA6-46A5-830E-33C2D68686CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4842AEA5-8CA6-46A5-830E-33C2D68686CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4842AEA5-8CA6-46A5-830E-33C2D68686CD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
