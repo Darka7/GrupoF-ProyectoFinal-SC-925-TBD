@@ -61,6 +61,11 @@
     <Folder Include="dbo\StoreProcedures" />
     <Folder Include="dbo\Tables" />
     <Folder Include="dbo\Scripts" />
+    <Folder Include="dbo\StoreProcedures\Cliente" />
+    <Folder Include="dbo\StoreProcedures\Mantenimientos" />
+    <Folder Include="dbo\StoreProcedures\Servicio" />
+    <Folder Include="dbo\Functions" />
+    <Folder Include="dbo\StoreProcedures\Reportes" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Security\Encriptar.sql" />
@@ -86,6 +91,17 @@
     <Build Include="dbo\StoreProcedures\CargaDatosIniciales.sql" />
     <None Include="dbo\Scripts\002-CargarDatos.sql" />
     <None Include="dbo\Scripts\001-AsignacionRolAdministrador.sql" />
+    <Build Include="dbo\StoreProcedures\Cliente\ObtenerConsumoClienteUltimoMes.sql" />
+    <Build Include="dbo\StoreProcedures\Cliente\ObtenerClientesMorosos.sql" />
+    <Build Include="dbo\StoreProcedures\Mantenimientos\ObtenerHistorialMantenimientos.sql" />
+    <Build Include="dbo\StoreProcedures\Servicio\ObtenerIngresosPorServicio.sql" />
+    <Build Include="dbo\StoreProcedures\Cliente\ObtenerClientesMayorConsumo.sql" />
+    <Build Include="dbo\StoreProcedures\Servicio\ObtenerServiciosSinEquipo.sql" />
+    <Build Include="dbo\StoreProcedures\Servicio\ContarServiciosPorTipoEquipo.sql" />
+    <Build Include="dbo\Functions\DesencriptarEmailCliente.sql" />
+    <Build Include="dbo\StoreProcedures\Reportes\RptConsumoMensual.sql" />
+    <Build Include="dbo\StoreProcedures\Reportes\RptMantenimientos.sql" />
+    <Build Include="dbo\StoreProcedures\Reportes\RptEficienciaEquipos.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
