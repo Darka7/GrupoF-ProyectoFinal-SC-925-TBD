@@ -66,6 +66,7 @@
     <Folder Include="dbo\StoreProcedures\Servicio" />
     <Folder Include="dbo\Functions" />
     <Folder Include="dbo\StoreProcedures\Reportes" />
+    <Folder Include="dbo\StoreProcedures\Contrato" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Security\Encriptar.sql" />
@@ -102,6 +103,18 @@
     <Build Include="dbo\StoreProcedures\Reportes\RptConsumoMensual.sql" />
     <Build Include="dbo\StoreProcedures\Reportes\RptMantenimientos.sql" />
     <Build Include="dbo\StoreProcedures\Reportes\RptEficienciaEquipos.sql" />
+    <Build Include="dbo\StoreProcedures\Cliente\InsertarCliente.sql" />
+    <Build Include="dbo\StoreProcedures\Cliente\ObtenerClienteDetalle.sql" />
+    <Build Include="dbo\StoreProcedures\Cliente\ActualizarCliente.sql" />
+    <Build Include="dbo\StoreProcedures\Contrato\InsertarContrato.sql" />
+    <Build Include="dbo\StoreProcedures\Contrato\ObtenerContrato.sql" />
+    <Build Include="dbo\StoreProcedures\Contrato\ActualizarContrato.sql" />
+    <Build Include="dbo\StoreProcedures\Cliente\EliminarCliente.sql" />
+    <Build Include="dbo\StoreProcedures\Contrato\EliminarContrato.sql" />
+    <Build Include="dbo\StoreProcedures\Servicio\InsertarServicio.sql" />
+    <Build Include="dbo\StoreProcedures\Servicio\ObtenerServicio.sql" />
+    <Build Include="dbo\StoreProcedures\Servicio\ActualizarServicio.sql" />
+    <Build Include="dbo\StoreProcedures\Servicio\EliminarServicio.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
